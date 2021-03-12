@@ -1,0 +1,50 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    Accueil
+{% endblock %}
+
+{% block body %}
+  <h1 class="title p-1 text-center"> Nos derniers articles </h1>
+
+<div class="row">
+
+  <div class="col-md-8">
+     <div class="row"> 
+        {% for article in articles %}
+    
+          <div class="card col-md-4" style="width: 18rem;">
+            <img src="/assets/blog/images/{{ article.image }}" class="card-img-top" alt="{{ article.title }}">
+            <div class="card-body">
+              <h5 class="card-title">{{ article.title }}</h5>
+              <p class="date"> Publié le {{article.createdate | date("(d/m/Y)") }} par <span class="author"> {{article.author}} </span></p>
+              <a href="{{ path('show', {'id':article.id}) }}" class="btn btn-info">En savoir plus</a>
+            </div>
+          </div>
+        {% endfor %}
+
+      </div>
+  </div>
+
+
+
+  <div class="col-md-4">
+  <h2> Categories</h2>
+      <ul class="list-group">
+      {% for categorie in categories %}
+        
+     
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+       <a href="{{path('show_article', {'id':categorie.id}) }}">{{categorie.title}}
+        <span class="badge badge-primary badge-pill">{{ categorie.articles | length}} article(s)</span></a>
+      </li>
+ {% endfor %}
+    </ul>
+ 
+  </div>
+
+
+
+</div>
+
+{% endblock %}
